@@ -9,6 +9,7 @@
 
 // Test that header file is self-contained.
 #include <boost/punycode/punycode.hpp>
+#include <boost/punycode/ascii_count.hpp>
 #include <boost/punycode/utf8_count.hpp>
 #include <boost/punycode/utf8_input.hpp>
 #include <boost/punycode/utf8_output.hpp>
@@ -46,10 +47,10 @@ public:
     encode(std::u32string s)
     {
         std::string result;
-        result.resize(
-            punycode::encoded_size(
-                s.data(),
-                s.data() + s.size()));
+        result.resize(punycode::encode(
+            ascii_count(),
+            s.data(),
+            s.data() + s.size()).count());
         punycode::encode(
             &result[0],
             s.data(),
@@ -237,13 +238,13 @@ public:
             {
                 auto const u8 = to_utf8(u);
                 std::string a2;
-                a2.resize(
-                    encoded_size(
-                        utf8_input(
-                            u8.data(),
-                            u8.data() + u8.size()),
-                        utf8_input(
-                            u8.data() + u8.size())));
+                a2.resize(punycode::encode(
+                    ascii_count(),
+                    utf8_input(
+                        u8.data(),
+                        u8.data() + u8.size()),
+                    utf8_input(
+                        u8.data() + u8.size())).count());
                 punycode::encode(
                     &a2[0],
                     utf8_input(

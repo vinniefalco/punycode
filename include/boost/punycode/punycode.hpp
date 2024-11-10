@@ -16,7 +16,6 @@
 
 #include <boost/punycode/detail/config.hpp>
 #include <boost/punycode/detail/except.hpp>
-#include <boost/punycode/ascii_count.hpp>
 #include <boost/assert.hpp>
 #include <cstdint>
 #include <cstring>
@@ -242,17 +241,6 @@ encode(
 
 fail:
     return dest;
-}
-
-template<class InputIt>
-std::size_t
-encoded_size(
-    InputIt first,
-    InputIt last)
-{
-    std::size_t n = 0;
-    encode(ascii_count{n}, first, last);
-    return n;
 }
 
 inline

@@ -21,7 +21,7 @@ namespace punycode {
 */
 struct ascii_count
 {
-    std::size_t* n_;
+    std::size_t n_ = 0;
 
 public:
     using value_type        = char;
@@ -31,21 +31,16 @@ public:
     using iterator_category =
         std::output_iterator_tag;
 
-    ascii_count(ascii_count const&) = default;
-    ascii_count& operator=(ascii_count const&) = default;
-
-    explicit
-    ascii_count(
-        std::size_t& n) noexcept
-        : n_(&n)
+    std::size_t
+    count() const noexcept
     {
-        *n_ = 0;
+        return n_;
     }
 
     ascii_count&
     operator=(char) noexcept
     {
-        ++*n_;
+        ++n_;
         return *this;
     }
 
