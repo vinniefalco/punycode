@@ -21,7 +21,7 @@ namespace punycode {
 // counts utf8 code points
 class utf8_count
 {
-    std::size_t* n_;
+    std::size_t n_ = 0;
 
 public:
     using value_type        = char32_t;
@@ -31,30 +31,23 @@ public:
     using iterator_category =
         std::output_iterator_tag;
 
-    utf8_count(
-        utf8_count const&) = default;
-    utf8_count& operator=(
-        utf8_count const&) = default;
-
-    explicit
-    utf8_count(
-        std::size_t& n) noexcept
-        : n_(&n)
+    std::size_t
+    count() const noexcept
     {
-        *n_ = 0;
+        return n_;
     }
 
     utf8_count&
     operator=(char32_t cp) noexcept
     {
         if(cp < 0x80)
-            *n_ += 1;
+            n_ += 1;
         else if(cp < 0x800)
-            *n_ += 2;
+            n_ += 2;
         else if(cp < 0x10000)
-            *n_ += 3;
+            n_ += 3;
         else
-            *n_ += 4;
+            n_ += 4;
         return *this;
     }
 

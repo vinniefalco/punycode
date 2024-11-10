@@ -1707,13 +1707,12 @@ utf8_to_idna(
     core::string_view s,
     std::string&& storage)
 {
-    std::size_t n;
     utf8_input const first(
         s.data(), s.data() + s.size());
     utf8_input const last(
         s.data() + s.size());
-    encode_idna(utf8_count(n), first, last );
-    storage.resize(n);
+    storage.resize(encode_idna(
+        utf8_count(), first, last).count());
     encode_idna(
         utf8_output(&storage[0]), first, last);
     return std::move(storage);

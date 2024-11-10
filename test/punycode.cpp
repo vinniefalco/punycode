@@ -61,11 +61,11 @@ public:
     std::string
     to_utf8(std::u32string const& in)
     {
-        std::size_t len;
-        std::copy(in.begin(), in.end(),
-            utf8_count(len));
         std::string out;
-        out.resize(len);
+        out.resize(std::copy(
+            in.begin(),
+            in.end(),
+            utf8_count()).count());
         std::copy(in.begin(), in.end(),
             utf8_output(&out[0]));
         return out;
