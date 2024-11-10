@@ -146,17 +146,8 @@ decode_digit(
 
 } // detail
 
-/*
-inline
-std::size_t
-encode(
-    void (*writef)(void*, char32_t),
-    char32_t (*readf)(void*))
-{
-    return 0;
-}
-*/  
-
+/** Punycode encode a utf32 range
+*/
 template<
     class OutputIt,
     class InputIt
@@ -182,7 +173,7 @@ encode(
     {
         ++srclen;
         auto const cp = *src++;
-        if(cp < 128)
+        if(cp < 0x80)
         {
             ++di;
             *dest++ =

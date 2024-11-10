@@ -7,8 +7,8 @@
 // Official repository: https://github.com/cppalliance/punycode
 //
 
-#ifndef BOOST_PUNYCODE_ENCODE_HPP
-#define BOOST_PUNYCODE_ENCODE_HPP
+#ifndef BOOST_PUNYCODE_IDNA_HPP
+#define BOOST_PUNYCODE_IDNA_HPP
 
 #include <boost/punycode/detail/config.hpp>
 #include <boost/core/detail/string_view.hpp>
@@ -23,7 +23,7 @@ namespace punycode {
 BOOST_PUNYCODE_DECL
 system::result<std::string>
 utf8_to_idna(
-    core::string_view s,
+    core::string_view domain,
     std::string&& storage = std::string());
 
 } // punycode
