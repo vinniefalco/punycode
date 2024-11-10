@@ -75,16 +75,14 @@ public:
     std::u32string
     from_utf8(std::string const& in)
     {
-        std::size_t len;
-        std::copy(
+        std::u32string out;
+        out.resize(std::copy(
             utf8_input(
                 in.data(),
                 in.data() + in.size()),
             utf8_input(
                 in.data() + in.size()),
-            utf32_count(len));
-        std::u32string out;
-        out.resize(len);
+            utf32_count()).count());
         std::copy(
             utf8_input(
                 in.data(),

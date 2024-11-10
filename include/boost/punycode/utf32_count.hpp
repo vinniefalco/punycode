@@ -21,7 +21,7 @@ namespace punycode {
 // counts utf32 code points
 class utf32_count
 {
-    std::size_t* n_;
+    std::size_t n_ = 0;
 
 public:
     using value_type        = char32_t;
@@ -31,21 +31,16 @@ public:
     using iterator_category =
         std::output_iterator_tag;
 
-    utf32_count(utf32_count const&) = default;
-    utf32_count& operator=(utf32_count const&) = default;
-
-    explicit
-    utf32_count(
-        std::size_t& n) noexcept
-        : n_(&n)
+    std::size_t
+    count() const noexcept
     {
-        *n_ = 0;
+        return n_;
     }
 
     utf32_count&
     operator=(char32_t) noexcept
     {
-        ++*n_;
+        ++n_;
         return *this;
     }
 
